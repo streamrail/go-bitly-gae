@@ -26,7 +26,6 @@ func NewClient(token string) *Client {
 }
 
 func (c *Client) Shorten(ctx appengine.Context, longUrl string) (shortUrl string, err error) {
-	client := &http.Client{}
 	endpoint := fmt.Sprintf("%s?access_token=%s&longUrl=%s", api, c.Token, longUrl)
 	fmt.Printf("GET %s", endpoint)
 	req, err := http.NewRequest("GET", endpoint, nil)
