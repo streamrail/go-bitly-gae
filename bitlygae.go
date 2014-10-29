@@ -24,7 +24,7 @@ func NewClient(token string) *Client {
 	}
 }
 
-func (c *Client) Shorten(longUrl string) (c appengine.Context, shortUrl string, err error) {
+func (c *Client) Shorten(longUrl string) (ctx appengine.Context, shortUrl string, err error) {
 	client := &http.Client{}
 	endpoint := fmt.Sprintf("%s?access_token=%s&longUrl=%s", api, c.Token, longUrl)
 	fmt.Printf("GET %s", endpoint)
@@ -35,7 +35,7 @@ func (c *Client) Shorten(longUrl string) (c appengine.Context, shortUrl string, 
 	}
 	req.Header.Add("Content-Type", "application/json")
 
-	tr := &urlfetch.Transport{Context: c, Deadline: time.Duration(30) * time.Second}
+	tr := &urlfetch.Transport{Context: ctx, Deadline: time.Duration(30) * time.Second}
 
 	res, err := tr.RoundTrip(req)
 
